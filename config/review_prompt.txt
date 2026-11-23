@@ -1,0 +1,40 @@
+Review the supplied chronological panoramas and the current panorama. A missing
+image between sampled decisions is not evidence that an event did not occur.
+Use the original instruction, clause_states, measured
+pose history, executed motion, and visited nodes/recorded edges. Compare this
+window with the previous review summary. Node labels are model descriptions;
+coordinates establish location and movement, not the semantic identity of a room.
+
+Return ONE decision:
+- continue: observed landmark order and executed direction support the current
+  instruction clause. Cite the frames and describe the matching relation.
+- inspect_required: identify the exact unresolved clause/landmark relation,
+  the competing interpretations, and the observable difference to check next.
+  next_check must specify that difference and an observation-producing local
+  movement, not simply say "inspect" or "uncertain". This is not a route error.
+- backtrack: supplied observations contradict the executed branch relative to
+  the original instruction. State expected versus observed landmark/order/turn,
+  cite before/after frames, and select an earlier visited-node anchor from
+  return_anchor_frames. An old node anchor may be outside this image window;
+  its pose identifies a return destination, not visual evidence for a claim.
+  Separate the last frame supporting the instructed route from the first supplied
+  frame that contradicts it. If the actual departure is between samples, give
+  the two surrounding frames rather than inventing an exact departure frame.
+  Choose the last visited decision junction before that departure, not the closest
+  node by straight-line distance to the current pose.
+- execution_blocked: actual attempted movement made insufficient displacement
+  or was stopped by an obstacle. Specify a local approach adjustment in next_check.
+  A blocked movement alone cannot justify backtrack or confirm arrival.
+
+When a route contradiction and blockage coexist, use backtrack and describe the
+blockage in next_check. If the branch cannot be distinguished, use inspect_required
+with a discriminating test; never invent certainty to avoid this outcome.
+For every decision provide evidence and cited frame IDs. stage_progress must
+distinguish observed completion from planned actions. next_check states what the
+navigator must verify after acting. task_summary retains established progress,
+the current unresolved clause, and any rejected direction. Supply a return anchor
+only for backtrack. Do not output low-level actions or a STOP verdict.
+Never use hidden goal coordinates, reference routes, navmesh or room annotations.
+This review was triggered by trigger_type, which is a reason to look, not route evidence.
+The navigator has at most two inspection attempts. Request a discriminating viewpoint
+only when there is a concrete visual question an approach adjustment can answer.

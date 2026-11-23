@@ -1,0 +1,708 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "skill": {
+      "type": "string",
+      "enum": [
+        "move",
+        "stop"
+      ]
+    },
+    "stage": {
+      "type": "integer"
+    },
+    "place": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "clause_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "contradicted",
+              "seen",
+              "reached",
+              "passed"
+            ]
+          },
+          "frames": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "observation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "clause_id",
+          "state",
+          "frames",
+          "observation"
+        ]
+      }
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "turn_left"
+              },
+              "degrees": {
+                "type": "integer",
+                "enum": [
+                  15,
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "degrees"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "turn_right"
+              },
+              "degrees": {
+                "type": "integer",
+                "enum": [
+                  15,
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "degrees"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "forward"
+              },
+              "centimeters": {
+                "type": "integer",
+                "enum": [
+                  25,
+                  50,
+                  75,
+                  100
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "centimeters"
+            ]
+          }
+        ]
+      }
+    },
+    "maneuver": {
+      "type": "string",
+      "enum": [
+        "travel",
+        "climb_up",
+        "climb_down",
+        "return_to_anchor",
+        "instruction_orientation"
+      ]
+    },
+    "return_anchor_frame": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "branch_target": {
+      "type": "string"
+    },
+    "instruction_clause": {
+      "type": "string"
+    },
+    "evidence_frames": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "integer"
+      }
+    },
+    "route_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_clause": {
+          "type": "string"
+        },
+        "landmarks": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "confirmed",
+                  "contradicted",
+                  "unknown"
+                ]
+              },
+              "frames": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "required": [
+              "description",
+              "verdict",
+              "frames"
+            ]
+          }
+        },
+        "prerequisites": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "confirmed",
+                  "contradicted",
+                  "unknown"
+                ]
+              },
+              "frames": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "required": [
+              "description",
+              "verdict",
+              "frames"
+            ]
+          }
+        },
+        "door_crossing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verdict": {
+              "type": "string",
+              "enum": [
+                "confirmed",
+                "contradicted",
+                "unknown"
+              ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "before_frame": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "after_frame": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "verdict",
+            "description",
+            "before_frame",
+            "after_frame"
+          ]
+        },
+        "route_verdict": {
+          "type": "string",
+          "enum": [
+            "confirmed",
+            "contradicted",
+            "unknown"
+          ]
+        },
+        "route_frames": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "expected_next": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "current_clause",
+        "landmarks",
+        "prerequisites",
+        "door_crossing",
+        "route_verdict",
+        "route_frames",
+        "expected_next"
+      ]
+    },
+    "history_panorama_ids": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "integer"
+      }
+    },
+    "map_operation": {
+      "type": "string",
+      "enum": [
+        "none",
+        "annotate_node",
+        "navigate_to_node"
+      ]
+    },
+    "map_node_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "map_annotation": {
+      "type": "string"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "view": {
+          "type": "string",
+          "enum": [
+            "front",
+            "right",
+            "rear",
+            "left"
+          ]
+        },
+        "point_norm": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "seen",
+            "approaching",
+            "possibly_passed",
+            "reached"
+          ]
+        }
+      },
+      "required": [
+        "description",
+        "view",
+        "point_norm",
+        "status"
+      ]
+    },
+    "expected_effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "goal": {
+          "type": "string"
+        },
+        "expected_distance_change": {
+          "type": "string",
+          "enum": [
+            "decrease",
+            "stable",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "goal",
+        "expected_distance_change"
+      ]
+    },
+    "entrance_candidates": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "view": {
+            "type": "string",
+            "enum": [
+              "front",
+              "right",
+              "rear",
+              "left"
+            ]
+          },
+          "bbox_norm": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "type": "number"
+            }
+          },
+          "possible_destination": {
+            "type": "string"
+          },
+          "instruction_relevance": {
+            "type": "string",
+            "enum": [
+              "potentially_relevant",
+              "uncertain",
+              "unlikely"
+            ]
+          },
+          "evidence_frame": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "description",
+          "view",
+          "bbox_norm",
+          "possible_destination",
+          "instruction_relevance",
+          "evidence_frame"
+        ]
+      }
+    },
+    "route_choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "follow_current_route",
+            "inspect_candidate",
+            "switch_branch",
+            "finish"
+          ]
+        },
+        "target_candidate_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "route_support": {
+          "type": "string",
+          "enum": [
+            "observed",
+            "uncertain",
+            "contradicted"
+          ]
+        },
+        "evidence_frames": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "role",
+        "target_candidate_id",
+        "route_support"
+      ]
+    },
+    "compound_route_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "landmark_progress": {
+          "type": "string",
+          "enum": [
+            "not_seen",
+            "approaching",
+            "alongside",
+            "passed",
+            "unknown"
+          ]
+        },
+        "associated_door_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "door_relation": {
+          "type": "string",
+          "enum": [
+            "unseen",
+            "before_landmark",
+            "alongside_landmark",
+            "after_landmark",
+            "unknown"
+          ]
+        },
+        "intended_final_turn": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "unknown"
+          ]
+        },
+        "completion": {
+          "type": "string",
+          "enum": [
+            "unresolved",
+            "satisfied",
+            "unknown"
+          ]
+        },
+        "evidence_frames": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "landmark_progress",
+        "associated_door_id",
+        "door_relation",
+        "intended_final_turn",
+        "completion"
+      ]
+    },
+    "task_goal_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "view": {
+          "type": "string",
+          "enum": [
+            "front",
+            "right",
+            "rear",
+            "left"
+          ]
+        },
+        "point_norm": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "seen",
+            "approaching",
+            "possibly_passed",
+            "reached"
+          ]
+        }
+      },
+      "required": [
+        "description",
+        "view",
+        "point_norm",
+        "status"
+      ]
+    },
+    "review_response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resolution": {
+          "type": "string",
+          "enum": [
+            "not_applicable",
+            "backtrack_to_node",
+            "inspect_suspected_branch",
+            "continue_with_counterevidence"
+          ]
+        },
+        "evidence_frames": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "map_node_id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "current_test": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "resolution",
+        "evidence_frames",
+        "map_node_id",
+        "current_test"
+      ]
+    },
+    "room_stage_hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "room": {
+          "type": "string"
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "none",
+            "possible",
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "instruction_stage": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "evidence_frame": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "node_id",
+        "room",
+        "relation",
+        "instruction_stage",
+        "evidence_frame"
+      ]
+    }
+  },
+  "required": [
+    "skill",
+    "stage",
+    "place",
+    "note",
+    "events",
+    "actions",
+    "maneuver",
+    "return_anchor_frame",
+    "branch_target",
+    "instruction_clause",
+    "evidence_frames",
+    "route_evidence",
+    "map_operation",
+    "map_node_id",
+    "map_annotation",
+    "history_panorama_ids",
+    "target",
+    "expected_effect",
+    "entrance_candidates",
+    "compound_route_assessment",
+    "route_choice",
+    "task_goal_anchor",
+    "review_response",
+    "room_stage_hypothesis"
+  ]
+}

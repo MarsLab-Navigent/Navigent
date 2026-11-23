@@ -1,0 +1,17 @@
+{
+  "camera_height_m": 1.25,
+  "rgb": {"width": 640, "height": 480, "hfov": 90},
+  "geometry": {"width": 400, "height": 400, "hfov": 120, "min_depth": 0.0, "max_depth": 10.0},
+  "horizontal_views": [
+    {"uuid": "rgb", "pitch_deg": 0, "yaw_deg": 0},
+    {"uuid": "right_rgb", "pitch_deg": 0, "yaw_deg": -90},
+    {"uuid": "rear_rgb", "pitch_deg": 0, "yaw_deg": 180},
+    {"uuid": "left_rgb", "pitch_deg": 0, "yaw_deg": 90}
+  ],
+  "downward_views": [
+    {"uuid": "floor_rgb", "pitch_deg": -45, "yaw_deg": 0},
+    {"uuid": "floor_right_rgb", "pitch_deg": -45, "yaw_deg": -90},
+    {"uuid": "floor_rear_rgb", "pitch_deg": -45, "yaw_deg": 180},
+    {"uuid": "floor_left_rgb", "pitch_deg": -45, "yaw_deg": 90}
+  ]
+}
