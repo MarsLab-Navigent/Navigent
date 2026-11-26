@@ -28,7 +28,12 @@
 
 ## 📊 Results
 
-Comparison on the Habitat **val-unseen** splits of R2R-CE and RxR-CE. NE is in meters; OSR, SR, SPL, and nDTW are percentages. **Bold** marks the best result and <ins>underline</ins> the best baseline.
+Comparison on the Habitat **val-unseen** splits of R2R-CE and RxR-CE. Shading marks the best, second-best, and third-best result in each column.
+
+<p align="center"><img src="assets/navigent-results.png" width="100%" alt="Navigent vs. VLA and agentic baselines on R2R-CE and RxR-CE val-unseen"></p>
+
+<details>
+<summary>Table as text</summary>
 
 <table>
   <thead>
@@ -42,8 +47,8 @@ Comparison on the Habitat **val-unseen** splits of R2R-CE and RxR-CE. NE is in m
     <tr><td>Uni-NaVid</td><td align="center">5.58</td><td align="center">53.5</td><td align="center">47.0</td><td align="center">42.7</td><td align="center">6.24</td><td align="center">48.7</td><td align="center">40.9</td><td align="center">–</td></tr>
     <tr><td>StreamVLN</td><td align="center">4.90</td><td align="center">63.6</td><td align="center">56.4</td><td align="center">50.2</td><td align="center">5.65</td><td align="center">54.4</td><td align="center">45.4</td><td align="center">63.7</td></tr>
     <tr><td>NavFoM</td><td align="center">4.61</td><td align="center">72.1</td><td align="center">61.7</td><td align="center">55.3</td><td align="center">4.74</td><td align="center">64.4</td><td align="center">56.2</td><td align="center">65.8</td></tr>
-    <tr><td>CorrectNav</td><td align="center">4.24</td><td align="center">67.5</td><td align="center">65.1</td><td align="center">62.3</td><td align="center">4.09</td><td align="center">69.3</td><td align="center"><ins>63.3</ins></td><td align="center"><ins>75.2</ins></td></tr>
-    <tr><td>OmniNav</td><td align="center"><ins>3.74</ins></td><td align="center"><ins>74.6</ins></td><td align="center"><ins>69.5</ins></td><td align="center"><ins>66.1</ins></td><td align="center"><ins>3.77</ins></td><td align="center"><ins>73.6</ins></td><td align="center">62.0</td><td align="center">–</td></tr>
+    <tr><td>CorrectNav</td><td align="center">4.24</td><td align="center">67.5</td><td align="center">65.1</td><td align="center">62.3</td><td align="center">4.09</td><td align="center">69.3</td><td align="center">63.3</td><td align="center">75.2</td></tr>
+    <tr><td>OmniNav</td><td align="center">3.74</td><td align="center">74.6</td><td align="center">69.5</td><td align="center">66.1</td><td align="center">3.77</td><td align="center">73.6</td><td align="center">62.0</td><td align="center">–</td></tr>
     <tr><td colspan="9"><i>Agentic / training-free MLLM methods</i></td></tr>
     <tr><td>InstructNav</td><td align="center">6.90</td><td align="center">–</td><td align="center">31.0</td><td align="center">24.0</td><td align="center">–</td><td align="center">–</td><td align="center">–</td><td align="center">–</td></tr>
     <tr><td>NavGPT-CE</td><td align="center">8.40</td><td align="center">26.9</td><td align="center">16.3</td><td align="center">10.2</td><td align="center">–</td><td align="center">–</td><td align="center">–</td><td align="center">–</td></tr>
@@ -54,6 +59,8 @@ Comparison on the Habitat **val-unseen** splits of R2R-CE and RxR-CE. NE is in m
     <tr><td><b>Navigent (Ours)</b></td><td align="center"><b>2.22</b></td><td align="center"><b>86.1</b></td><td align="center"><b>84.0</b></td><td align="center"><b>72.9</b></td><td align="center"><b>1.92</b></td><td align="center"><b>86.0</b></td><td align="center"><b>69.1</b></td><td align="center"><b>79.7</b></td></tr>
   </tbody>
 </table>
+
+</details>
 
 On real hardware (AgileX SCOUT MINI with an Intel RealSense D456), Navigent completes **27 of 30** indoor and outdoor trials (**90.0% SR**).
 
