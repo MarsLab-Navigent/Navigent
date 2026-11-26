@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://marslab-navigent.github.io/navigent.github.io/"><img src="https://img.shields.io/badge/Homepage-Navigent-blue" alt="Navigent homepage"></a>
-  <span aria-disabled="true"><img src="https://img.shields.io/badge/Paper-Coming%20Soon-lightgrey" alt="Paper coming soon"></span>
+  <a href="https://arxiv.org/pdf/2611.34249"><img src="https://img.shields.io/badge/arXiv-2611.34249-b31b1b" alt="arXiv paper"></a>
 </p>
 
 
@@ -20,23 +20,38 @@
 - **Geometry-grounded execution.** The critic compares commanded motion with measured displacement and tracks selected visual anchors in world coordinates.
 - **Node-based recovery.** When execution and observations disagree, the agent can inspect the scene, adjust its motion, or return along the recorded route to a visited node.
 
-![Navigent framework: visual memory, geometric verification, and node recovery](assets/navigent-framework.png)
+![Navigent overview: online navigation with the Geometry-Grounded Critic and node recovery, and offline self-improvement](assets/navigent-overview.png)
 
 ## 📊 Results
 
-Navigent results on the Habitat **val-unseen** splits. NE is in meters; OSR, SR, SPL, and nDTW are percentages.
+Comparison on the Habitat **val-unseen** splits of R2R-CE and RxR-CE. NE is in meters; OSR, SR, SPL, and nDTW are percentages. **Bold** marks the best result and <ins>underline</ins> the best baseline.
 
-### R2R-CE
+<table>
+  <thead>
+    <tr><th rowspan="2" align="left">Method</th><th colspan="4">R2R-CE val-unseen</th><th colspan="4">RxR-CE val-unseen</th></tr>
+    <tr><th>NE ↓</th><th>OSR ↑</th><th>SR ↑</th><th>SPL ↑</th><th>NE ↓</th><th>SR ↑</th><th>SPL ↑</th><th>nDTW ↑</th></tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="9"><i>VLA / end-to-end navigation models</i></td></tr>
+    <tr><td>NaVid</td><td align="center">5.47</td><td align="center">49.1</td><td align="center">37.4</td><td align="center">35.9</td><td align="center">8.41</td><td align="center">23.8</td><td align="center">21.2</td><td align="center">–</td></tr>
+    <tr><td>NaVILA</td><td align="center">5.22</td><td align="center">62.5</td><td align="center">54.0</td><td align="center">49.0</td><td align="center">6.77</td><td align="center">49.3</td><td align="center">44.0</td><td align="center">58.8</td></tr>
+    <tr><td>Uni-NaVid</td><td align="center">5.58</td><td align="center">53.5</td><td align="center">47.0</td><td align="center">42.7</td><td align="center">6.24</td><td align="center">48.7</td><td align="center">40.9</td><td align="center">–</td></tr>
+    <tr><td>StreamVLN</td><td align="center">4.90</td><td align="center">63.6</td><td align="center">56.4</td><td align="center">50.2</td><td align="center">5.65</td><td align="center">54.4</td><td align="center">45.4</td><td align="center">63.7</td></tr>
+    <tr><td>NavFoM</td><td align="center">4.61</td><td align="center">72.1</td><td align="center">61.7</td><td align="center">55.3</td><td align="center">4.74</td><td align="center">64.4</td><td align="center">56.2</td><td align="center">65.8</td></tr>
+    <tr><td>CorrectNav</td><td align="center">4.24</td><td align="center">67.5</td><td align="center">65.1</td><td align="center">62.3</td><td align="center">4.09</td><td align="center">69.3</td><td align="center"><ins>63.3</ins></td><td align="center"><ins>75.2</ins></td></tr>
+    <tr><td>OmniNav</td><td align="center"><ins>3.74</ins></td><td align="center"><ins>74.6</ins></td><td align="center"><ins>69.5</ins></td><td align="center"><ins>66.1</ins></td><td align="center"><ins>3.77</ins></td><td align="center"><ins>73.6</ins></td><td align="center">62.0</td><td align="center">–</td></tr>
+    <tr><td colspan="9"><i>Agentic / training-free MLLM methods</i></td></tr>
+    <tr><td>InstructNav</td><td align="center">6.90</td><td align="center">–</td><td align="center">31.0</td><td align="center">24.0</td><td align="center">–</td><td align="center">–</td><td align="center">–</td><td align="center">–</td></tr>
+    <tr><td>NavGPT-CE</td><td align="center">8.40</td><td align="center">26.9</td><td align="center">16.3</td><td align="center">10.2</td><td align="center">–</td><td align="center">–</td><td align="center">–</td><td align="center">–</td></tr>
+    <tr><td>CA-Nav</td><td align="center">7.58</td><td align="center">48.0</td><td align="center">25.3</td><td align="center">10.8</td><td align="center">10.37</td><td align="center">19.0</td><td align="center">6.0</td><td align="center">13.5</td></tr>
+    <tr><td>GC-VLN</td><td align="center">7.30</td><td align="center">41.8</td><td align="center">33.6</td><td align="center">16.3</td><td align="center">8.80</td><td align="center">33.8</td><td align="center">13.8</td><td align="center">–</td></tr>
+    <tr><td>HarnessVLN</td><td align="center">4.08</td><td align="center">70.7</td><td align="center">59.6</td><td align="center">43.6</td><td align="center">6.50</td><td align="center">51.4</td><td align="center">38.1</td><td align="center">55.6</td></tr>
+    <tr><td>AgentVLN</td><td align="center">3.88</td><td align="center">73.5</td><td align="center">67.2</td><td align="center">64.7</td><td align="center">3.92</td><td align="center">69.5</td><td align="center">61.3</td><td align="center">74.6</td></tr>
+    <tr><td><b>Navigent (Ours)</b></td><td align="center"><b>2.22</b></td><td align="center"><b>86.1</b></td><td align="center"><b>84.0</b></td><td align="center"><b>72.9</b></td><td align="center"><b>1.92</b></td><td align="center"><b>86.0</b></td><td align="center"><b>69.1</b></td><td align="center"><b>79.7</b></td></tr>
+  </tbody>
+</table>
 
-| Episodes | NE ↓ | OSR ↑ | SR ↑ | SPL ↑ |
-| ---: | ---: | ---: | ---: | ---: |
-| 1,839 | **2.22** | **86.1** | **84.0** | **72.9** |
-
-### RxR-CE
-
-| Episodes | NE ↓ | SR ↑ | SPL ↑ | nDTW ↑ |
-| ---: | ---: | ---: | ---: | ---: |
-| 3,669 | **1.92** | **86.0** | **69.1** | **79.7** |
+On real hardware (AgileX SCOUT MINI with an Intel RealSense D456), Navigent completes **27 of 30** indoor and outdoor trials (**90.0% SR**).
 
 ## 🛠️ Evaluation
 
