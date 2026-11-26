@@ -7,10 +7,9 @@
   <a href="https://arxiv.org/pdf/2611.34249"><img src="https://img.shields.io/badge/arXiv-2611.34249-b31b1b" alt="arXiv paper"></a>
 </p>
 
-<p align="center">
-  <a href="https://marslab-navigent.github.io/navigent.github.io/#teaser"><img src="assets/navigent-teaser-cover.png" width="85%" alt="Watch the Navigent teaser video"></a>
-  <br><sub>▶ Click to watch the teaser video on the project page</sub>
-</p>
+https://github.com/user-attachments/assets/31eb358a-a41a-428d-bee4-22b1b1fcb72f
+
+<p align="center"><sub>Full-resolution version on the <a href="https://marslab-navigent.github.io/navigent.github.io/#teaser">project page</a>.</sub></p>
 
 ## 🧭 Overview
 
